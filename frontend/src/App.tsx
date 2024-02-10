@@ -1,26 +1,8 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "./layouts/Layout";
+import { RouterProvider } from "react-router-dom";
+import { router } from './Routes';
 import "./index.css";
-import Register from "./pages/Register";
 
-let router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Layout>
-        <p>Home Page</p>
-      </Layout>
-    ),
-  },
-  {
-    path: "/register",
-    element: (
-      <Layout>
-        <Register />
-      </Layout>
-    ),
-  },
-]);
+
 function App() {
   return (
     <RouterProvider
