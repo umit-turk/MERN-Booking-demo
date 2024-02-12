@@ -1,6 +1,3 @@
-// routes.js
-
-import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import Register from './pages/Register';
