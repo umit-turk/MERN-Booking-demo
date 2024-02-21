@@ -1,5 +1,6 @@
 import express , {Request, Response} from 'express';
 import cloudinary from 'cloudinary';
+import Hotel, { HotelType } from '../models/hotel';
 
 
 
@@ -7,7 +8,7 @@ export const create = async (req:Request,res:Response) => {
 
     try {
         const imageFiles = req.files as Express.Multer.File[];
-        const newHotel = req.body;
+        const newHotel: HotelType = req.body;
 
         //1. upload the images to cloudinary
         const uploadPromises = imageFiles.map(async (image) => {
@@ -18,10 +19,15 @@ export const create = async (req:Request,res:Response) => {
         });
 
         const imageUrls = await Promise.all(uploadPromises);
+        newHotel.imageUrls = imageUrls;
+        newHotel.lastUpdated = new Date();
+        newHotel.userId = req.userId;
 
-        //2. if upload was successful, add the urls to the new hotel
         //3. save the new hotel in our database
+        const hotel = new Hotel(newHotel);
+        await hotel.save();
         //4. return a 201 status
+        res.status(201).send(hotel);
     } catch (error) {
         console.log("error creating horel: ", error)
         res.status(500).json({message:"Something went wrong"});
