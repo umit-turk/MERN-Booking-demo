@@ -34,5 +34,5 @@ app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
 
 app.listen(7001, () => {
-  console.log("server running on localhost:7001");
+  console.log("server running on localhost:7001 ");
 });
