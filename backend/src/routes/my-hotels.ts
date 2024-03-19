@@ -23,7 +23,7 @@ router.post("/", verifyToken,[
     body("description").notEmpty().withMessage("Description is required"),
     body("type").notEmpty().withMessage("Hotel type is required"),
     body("pricePerNight").notEmpty().isNumeric().withMessage("Price per night is required and must be a number"),
-    body("facilities").notEmpty().isArray().withMessage("Facilities type is required"),    
+    body("facilities").notEmpty().isArray().withMessage("Facilities are required"),    
 ], upload.array("imageFiles", 6), create)
 
 export default router;
