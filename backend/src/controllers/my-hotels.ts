@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cloudinary from 'cloudinary';
-import Hotel, { HotelType } from '../models/hotel';
+import { HotelType } from '../shared/types';
+import Hotel from '../models/hotel';
 
 
 
@@ -38,6 +39,20 @@ export const getAll = async (req: Request, res: Response) => {
     try {
         const hotels = await Hotel.find({ userId: req.userId })
         res.json(hotels);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching hotels" })
+    }
+}
+
+export const get = async (req: Request, res: Response) => {
+    //api/my-hotels/423423423
+    const id = req.params.id.toString();
+    try {
+        const hotel = await Hotel.findOne({
+            _id:id,
+            userId:req.userId,
+        });
+        res.json(hotel);
     } catch (error) {
         res.status(500).json({ message: "Error fetching hotels" })
     }
